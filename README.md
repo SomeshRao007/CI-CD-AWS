@@ -10,14 +10,14 @@ This is a comprehensive guide to installing the AWS CodeDeploy agent on Amazon L
 
 - Install CodeDeploy agent using the resource kit for optimal results.
 - Create service roles and IAM instance profiles for secure access.
--Utilize AppSpec files for streamlined deployments from GitHub.
--Troubleshoot deployment issues with log monitoring.
+- Utilize AppSpec files for streamlined deployments from GitHub.
+- Troubleshoot deployment issues with log monitoring.
 
 **Target Audience:**
 
--Developers and DevOps engineers deploying applications to AWS.
--Users seeking guidance on CodeDeploy agent installation and configuration on Amazon Linux 2.
--Anyone interested in streamlining application deployments using CodeDeploy.
+- Developers and DevOps engineers deploying applications to AWS.
+- Users seeking guidance on CodeDeploy agent installation and configuration on Amazon Linux 2.
+- Anyone interested in streamlining application deployments using CodeDeploy.
 
 # Installation for AMAZON Linux 2 AMI
 ```
@@ -42,9 +42,9 @@ bundle install
 rake clean && rake
 ```
 ### To install from resource kit (recommended)
-
+```
 wget https://bucket-name.s3.region-identifier.amazonaws.com/latest/install
-
+```
 _bucket-name_ is the name of the Amazon S3 bucket that contains the CodeDeploy Resource Kit files for your region, and _region-identifier_ is the identifier for your region. 
 
 for example in my case i was using N.Virginia so it was something like: 
@@ -55,23 +55,25 @@ wget https://aws-codedeploy-us-east-1.s3.us-east-1.amazonaws.com/latest/install
 **link to Read about it:** https://docs.aws.amazon.com/codedeploy/latest/userguide/resource-kit.html#resource-kit-bucket-names
 
 **Then make it executable by using:**
+```
 chmod +x ./install
-
+```
 **For installation:**
-sudo ./install auto
+
+```sudo ./install auto```
 
 **changing DIR:** 
 
-cd /home/ec2-user
+```cd /home/ec2-user```
 
 **checking Service:** 
-
+```
 systemctl start codedeploy-agent
 systemctl status codedeploy-agent
-
+```
 ## To check logs (Useful for debuging)
 
-I was facing some errors initially,
+> I was facing some errors initially,
 
 Error code:
 Action execution failed
@@ -85,13 +87,16 @@ HEALTH_CONSTRAINTS
 Deployment error message:
 The overall deployment failed because too many individual instances failed deployment, too few healthy instances are available for deployment, or some instances in your deployment group are experiencing problems
 
-I used this command:
+> I used this command:
+
 ```
 tail -f /var/log/aws/codedeploy-agent/codedeploy-agent.log
 ```
 where,
 _tail:_ This is a command-line utility used to view the last lines of a file.
+
 _-f:_ This flag tells tail to follow the file, meaning it will continuously monitor the file and display new lines as they are added.
+
 _/var/log/aws/codedeploy-agent/codedeploy-agent.log:_ This specifies the path to the log file you want to monitor. This file contains information about the activities of the CodeDeploy agent, including deployment status, errors, and events.
 
 **Thanks to jNQ read more about it in his blog:** https://jqn.medium.com/debugging-codedeploy-health-constraints-error-903c773a010e
@@ -113,6 +118,8 @@ Your Amazon EC2 instances require permission to access the Amazon S3 buckets or 
 
 policy name: _AmazonEC2RoleforAWSCodeDeploy_
 
+Attach this pocily to your EC2 (you can do it even after creating your instance or while creating you can attach it)
+
 if want to create your own policy and do it refer to aws docs: https://docs.aws.amazon.com/codedeploy/latest/userguide/getting-started-create-iam-instance-profile.html
 
 # Configure CodePipeline
@@ -120,29 +127,41 @@ if want to create your own policy and do it refer to aws docs: https://docs.aws.
 Configuring AWS CodePipeline for automatic deployments triggered by changes in your application Git repository involves several steps:
 
 **Setting Up the Source Stage**
+
 Choose your Git provider: Specify the Git service hosting your application code for example: GitHub, Gitlab, AWS CodeCommit.
+
 Connect your repository: Authorize CodePipeline to access your code repository by providing necessary credentials.
+
 Select the branch: Choose the specific branch containing your deployment code.
+
 Enable event-based triggering: to Configure CodePipeline to automatically trigger deployments upon any code changes select _no filter_ option that will update any puch to your repo or you can select _specify filter_ to make changes on a specific action.
 
+
 **Creating Build and Deployment Stages**
+
 Build stage:
+
 Define a build stage to process your code that is installing dependencies, compile code. Specify the build commands and environment. 
 If you don't have any (just a basic HTML Page) then you can skip this and select aws code deploy.
 
 Deployment stage:
+
 Use AWS CodeDeploy to define a deployment stage to deploy your application to your chosen target EC2 instances or ECS containers.
 then specify your application name and deployment group name in codepipeline.
-review and good to go just watch and enjoy the beautiful green green..
+
+Review and good to go just watch and enjoy the beautiful green green..
+
+
 ![Screenshot 2024-02-22 162540](https://github.com/SomeshRao007/CI-CD-AWS-Basic/assets/111784343/97e75c20-ba86-4646-b929-6009033cb398)
 
 
 
-# Don't forget 
-Service roles: Create IAM service roles for CodePipeline, CodeBuild, and CodeDeploy to grant necessary permissions.
-IAM instance profiles: For EC2 deployments, assign IAM instance profiles to your instances for access to resources.
-Environment variables: Manage environment variables for different deployment environments.
-And Lastly, in your github repository don't for get to add AppSpec.yml file, the AppSpec file is used by CodeDeploy to determine:
+# Don't forget !!
+
+- **Service roles:** Create IAM service roles for CodePipeline, CodeBuild, and CodeDeploy to grant necessary permissions.
+- **IAM instance profiles**: For EC2 deployments, assign IAM instance profiles to your instances for access to resources.
+- **Environment variables**: Manage environment variables for different deployment environments.
+- And Lastly, in your github repository don't for get to add **AppSpec.yml file**, the AppSpec file is used by CodeDeploy to determine:
 Your Amazon ECS task definition file. This is specified with its ARN in the TaskDefinition instruction in the AppSpec file.
 The container and port in your replacement task set where your Application Load Balancer or Network Load Balancer reroutes traffic during a deployment. This is specified with the LoadBalancerInfo instruction in the AppSpec file.
 
