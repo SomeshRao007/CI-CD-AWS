@@ -25,53 +25,53 @@ sudo yum update
 sudo yum install ruby
 sudo yum install wget
 ```
-#For cleaning AMI for any previous agent caching
-
+### For cleaning AMI for any previous agent caching
+```
 #!/bin/bash
 CODEDEPLOY_BIN="/opt/codedeploy-agent/bin/codedeploy-agent"
 $CODEDEPLOY_BIN stop
 yum erase codedeploy-agent -y
-
-# To install mannualy 
+```
+### To install mannualy 
 i wouldn't really recommend doing this, because you might end up with bundler related issues. If you really want to want to do it here you go. 
-
+```
 git clone https://github.com/aws/aws-codedeploy-agent.git
 gem install bundler -v 1.3.5
 cd aws-codedeploy-agent
 bundle install
 rake clean && rake
-
-#To install from resource kit (recommended)
+```
+### To install from resource kit (recommended)
 
 wget https://bucket-name.s3.region-identifier.amazonaws.com/latest/install
 
 _bucket-name_ is the name of the Amazon S3 bucket that contains the CodeDeploy Resource Kit files for your region, and _region-identifier_ is the identifier for your region. 
 
-for example in my case i was using N.Virginia so it was something like: wget https://aws-codedeploy-us-east-1.s3.us-east-1.amazonaws.com/latest/install
+for example in my case i was using N.Virginia so it was something like: 
+```
+wget https://aws-codedeploy-us-east-1.s3.us-east-1.amazonaws.com/latest/install 
+```
 
-[link to Read about it:] (https://docs.aws.amazon.com/codedeploy/latest/userguide/resource-kit.html#resource-kit-bucket-names)
+**link to Read about it:** https://docs.aws.amazon.com/codedeploy/latest/userguide/resource-kit.html#resource-kit-bucket-names
 
-Then make it executable by using:
-
+**Then make it executable by using:**
 chmod +x ./install
 
-For installation: 
-
+**For installation:**
 sudo ./install auto
 
-changing DIR: 
+**changing DIR:** 
 
 cd /home/ec2-user
 
-checking Service: 
+**checking Service:** 
 
 systemctl start codedeploy-agent
 systemctl status codedeploy-agent
 
+## To check logs (Useful for debuging)
 
-# To check logs (Useful for debuging)
-
-i was facing some errors initially,
+I was facing some errors initially,
 
 Error code:
 Action execution failed
@@ -86,13 +86,15 @@ Deployment error message:
 The overall deployment failed because too many individual instances failed deployment, too few healthy instances are available for deployment, or some instances in your deployment group are experiencing problems
 
 I used this command:
+```
 tail -f /var/log/aws/codedeploy-agent/codedeploy-agent.log
-
+```
+where,
 _tail:_ This is a command-line utility used to view the last lines of a file.
 _-f:_ This flag tells tail to follow the file, meaning it will continuously monitor the file and display new lines as they are added.
 _/var/log/aws/codedeploy-agent/codedeploy-agent.log:_ This specifies the path to the log file you want to monitor. This file contains information about the activities of the CodeDeploy agent, including deployment status, errors, and events.
 
-Thanks to jNQ read more about it in his blog: https://jqn.medium.com/debugging-codedeploy-health-constraints-error-903c773a010e
+**Thanks to jNQ read more about it in his blog:** https://jqn.medium.com/debugging-codedeploy-health-constraints-error-903c773a010e
 
 
 # Create a service role for CodeDeploy
