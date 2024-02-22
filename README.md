@@ -108,7 +108,9 @@ Service roles are used to grant permissions to an AWS service so it can access A
 
 The service role you create for **CodeDeploy** must be granted the permissions required for your compute platform. If you deploy to more than one compute platform, create one service role for each. 
 
-**For EC2/On-Premises deployments, attach the _AWSCodeDeployRole_ policy.**
+**For EC2/On-Premises deployments**
+
+Attach the _AWSCodeDeployRole_ policy.
 
 If you want to read more about it or want to know how to do it using CLI refer to amazon docs: https://docs.aws.amazon.com/codedeploy/latest/userguide/getting-started-create-service-role.html
 
