@@ -6,10 +6,10 @@ This is a comprehensive guide to installing the AWS CodeDeploy agent on Amazon L
 ![Basic CICD ](https://github.com/SomeshRao007/CI-CD-AWS-Basic/assets/111784343/492183d2-b4d0-4a16-a648-24a8fc916e5d)
 
 
-Key Takeaways:
+**Key Takeaways:**
 
-Install CodeDeploy agent using the resource kit for optimal results.
-Create service roles and IAM instance profiles for secure access.
+- Install CodeDeploy agent using the resource kit for optimal results.
+- Create service roles and IAM instance profiles for secure access.
 Utilize AppSpec files for streamlined deployments from GitHub.
 Troubleshoot deployment issues with log monitoring.
 
