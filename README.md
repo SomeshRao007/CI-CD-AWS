@@ -10,14 +10,14 @@ This is a comprehensive guide to installing the AWS CodeDeploy agent on Amazon L
 
 - Install CodeDeploy agent using the resource kit for optimal results.
 - Create service roles and IAM instance profiles for secure access.
-Utilize AppSpec files for streamlined deployments from GitHub.
-Troubleshoot deployment issues with log monitoring.
+-Utilize AppSpec files for streamlined deployments from GitHub.
+-Troubleshoot deployment issues with log monitoring.
 
-Target Audience:
+**Target Audience:**
 
-Developers and DevOps engineers deploying applications to AWS.
-Users seeking guidance on CodeDeploy agent installation and configuration on Amazon Linux 2.
-Anyone interested in streamlining application deployments using CodeDeploy.
+-Developers and DevOps engineers deploying applications to AWS.
+-Users seeking guidance on CodeDeploy agent installation and configuration on Amazon Linux 2.
+-Anyone interested in streamlining application deployments using CodeDeploy.
 
 # Installation for AMAZON Linux 2 AMI
 
@@ -49,7 +49,7 @@ _bucket-name_ is the name of the Amazon S3 bucket that contains the CodeDeploy R
 
 for example in my case i was using N.Virginia so it was something like: wget https://aws-codedeploy-us-east-1.s3.us-east-1.amazonaws.com/latest/install
 
-**link to Read about it**: https://docs.aws.amazon.com/codedeploy/latest/userguide/resource-kit.html#resource-kit-bucket-names
+[**link to Read about it**:] (https://docs.aws.amazon.com/codedeploy/latest/userguide/resource-kit.html#resource-kit-bucket-names)
 
 Then make it executable by using:
 
