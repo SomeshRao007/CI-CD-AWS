@@ -20,11 +20,11 @@ This is a comprehensive guide to installing the AWS CodeDeploy agent on Amazon L
 -Anyone interested in streamlining application deployments using CodeDeploy.
 
 # Installation for AMAZON Linux 2 AMI
-
+```
 sudo yum update
 sudo yum install ruby
 sudo yum install wget
-
+```
 #For cleaning AMI for any previous agent caching
 
 #!/bin/bash
