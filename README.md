@@ -1,4 +1,4 @@
-# CI-CD with AWS (basic)
+# Cloud_native-CI-CD-pipeline-AWS
 This is a comprehensive guide to installing the AWS CodeDeploy agent on Amazon Linux 2 AMIs, and configuring the CodePipeline so that the changes made in you application Github Repository and will be deployed automatically. It covers manual and recommended installation methods, service role creation, IAM instance profile setup, and AppSpec file configuration for GitHub repositories. Learn how to troubleshoot deployment errors and leverage the CodeDeploy agent for seamless application deployments.
 
 **Architecture diagram:**
